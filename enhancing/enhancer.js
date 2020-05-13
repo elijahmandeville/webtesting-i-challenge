@@ -41,31 +41,19 @@ function succeed(item) {
   }
 }
 
-function fail(item) {
-  if (typeof item.enhancement !== "number") {
+function fail({ name, durability, enhancement }) {
+  if (typeof enhancement !== "number") {
     throw new Error("Item enhancement must be a number");
-  } else if (item.enhancement >= 15) {
-    if (item.durability <= 0) {
-      if (item.enhancement >= 16) {
-        return { ...item, durability: 0, enhancement: item.enhancement - 1 };
-      }
-      return { ...item, durability: 0 };
-    }
-    if (item.enhancement >= 16) {
-      return {
-        ...item,
-        durability: item.durability - 10,
-        enhancement: item.enhancement - 1,
-      };
-    }
-    return { ...item, durability: item.durability - 10 };
-  } else if (item.enhancement < 15) {
-    if (item.durability <= 0) {
-      return { ...item, durability: 0 };
-    }
-    return { ...item, durability: item.durability - 5 };
   }
-  return { ...item };
+
+  if (enhancement >= 15) {
+    durability = Math.max(durability - 10, 0);
+    if (enhancement >= 16) enhancement -= 1;
+  } else {
+    durability = Math.max(durability - 5, 0);
+  }
+
+  return { name, durability, enhancement };
 }
 
 function repair(item) {
