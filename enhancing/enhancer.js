@@ -46,6 +46,9 @@ function fail(item) {
     throw new Error("Item enhancement must be a number");
   } else if (item.enhancement >= 15) {
     if (item.durability <= 0) {
+      if (item.enhancement >= 16) {
+        return { ...item, durability: 0, enhancement: item.enhancement - 1 };
+      }
       return { ...item, durability: 0 };
     }
     if (item.enhancement >= 16) {

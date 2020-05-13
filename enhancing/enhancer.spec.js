@@ -59,12 +59,26 @@ describe("enhancer unit tests", () => {
   });
 
   it("enhancement fails", () => {
-    expect(enhancer.fail(enhancer.weapons[0]).durability).toBe(90);
-    expect(enhancer.fail(enhancer.weapons[1]).durability).toBe(36);
-    expect(enhancer.fail(enhancer.weapons[2]).durability).toBe(0);
-    expect(enhancer.fail(enhancer.weapons[3]).durability).toBe(90);
-    expect(enhancer.fail(enhancer.weapons[3]).enhancement).toBe(19);
+    expect(enhancer.fail(enhancer.weapons[0])).toEqual({
+      ...enhancer.weapons[0],
+      durability: 90,
+    });
+    expect(enhancer.fail(enhancer.weapons[1])).toEqual({
+      ...enhancer.weapons[1],
+      durability: 36,
+      enhancement: 15,
+    });
+    expect(enhancer.fail(enhancer.weapons[2])).toEqual({
+      ...enhancer.weapons[2],
+      durability: 0,
+      enhancement: 15,
+    });
+    expect(enhancer.fail(enhancer.weapons[3])).toEqual({
+      ...enhancer.weapons[3],
+      durability: 90,
+      enhancement: 19,
+    });
 
-    expect(() => enhancer.fail(enhancer.weapons[4]).durability).toThrow();
+    expect(() => enhancer.fail(enhancer.weapons[4])).toThrow();
   });
 });
